@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Procurement System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- ================= SPLASH SCREEN ================= -->
+    <section id="welcome" class="screen active">
+        <div class="welcome-container">
+
+            <div class="language-picker">
+                <label for="languageSelect">Language</label>
+                <select id="languageSelect" onchange="setLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="te">తెలుగు</option>
+                </select>
+            </div>
+
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+            </div>
+
+            <h1 data-i18n="appTitle">Farmer Procurement System</h1>
+
+            <p class="tagline" data-i18n="tagline">Book. Track. Procure.</p>
+
+            <p class="welcome-text" data-i18n="welcomeText">
+                Easy slot booking and faster procurement for farmers.
+            </p>
+
+            <button class="primary-btn" onclick="showScreen('login')">
+                <span data-i18n="getStarted">Get Started</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- ================= LOGIN ================= -->
+    <section id="login" class="screen">
+
+        <div class="form-container">
+
+            <button class="back-btn" onclick="showScreen('welcome')">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="page-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <h2 data-i18n="farmerLogin">Farmer Login</h2>
+            <p class="subtitle" data-i18n="welcomeBack">Welcome back, Farmer!</p>
+            <p class="demo-note" data-i18n="demoLogin">Demo login: ramesh@example.com / demo123</p>
+
+            <label data-i18n="mobileOrEmail">Mobile Number / Email</label>
+            <input type="text" id="loginUser" data-i18n-placeholder="mobileEmailPlaceholder" placeholder="Enter mobile or email">
+
+            <label data-i18n="password">Password</label>
+            <input type="password" id="loginPassword" data-i18n-placeholder="passwordPlaceholder" placeholder="Enter password">
+
+            <button class="primary-btn" onclick="login()">
+                <span data-i18n="login">Login</span>
+            </button>
+
+            <button class="link-btn" onclick="forgotPassword()">
+                <span data-i18n="forgotPassword">Forgot Password?</span>
+            </button>
+
+            <div class="divider">
+                <span data-i18n="or">OR</span>
+            </div>
+
+            <button class="secondary-btn" onclick="showScreen('register')">
+                <span data-i18n="createAccount">Create New Account</span>
+            </button>
+
+            <button class="secondary-btn" onclick="openAdminDashboard()">
+                <span>Admin Login</span>
+            </button>
+
+            <button class="secondary-btn" onclick="showScreen('staffLogin')">
+                <span>Staff Login</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= STAFF LOGIN ================= -->
+    <section id="staffLogin" class="screen">
+
+        <div class="form-container">
+
+            <button class="back-btn" onclick="showScreen('login')">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="page-icon">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+
+            <h2>Procurement Staff Login</h2>
+            <p class="subtitle">Manage centres and village updates</p>
+            <p class="demo-note">Demo login: staff@centre.gov / staff123</p>
+
+            <label>Email</label>
+            <input type="email" id="staffUser" placeholder="Enter staff email">
+
+            <label>Password</label>
+            <input type="password" id="staffPassword" placeholder="Enter password">
+
+            <button class="primary-btn" onclick="staffLogin()">
+                <span>Login</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= REGISTRATION ================= -->
+    <section id="register" class="screen">
+
+        <div class="form-container">
+
+            <button class="back-btn" onclick="showScreen('login')">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="page-icon">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+
+            <h2 data-i18n="registerTitle">Farmer Registration</h2>
+            <p class="subtitle" data-i18n="registerSubtitle">Create your farmer account</p>
+
+            <label data-i18n="farmerName">Farmer Name</label>
+            <input type="text" id="regName" data-i18n-placeholder="namePlaceholder" placeholder="Enter your name">
+
+            <label data-i18n="mobileNumber">Mobile Number</label>
+            <input type="tel" id="regMobile" data-i18n-placeholder="mobilePlaceholder" placeholder="Enter mobile number">
+
+            <label data-i18n="email">Email</label>
+            <input type="email" id="regEmail" data-i18n-placeholder="emailPlaceholder" placeholder="Enter email">
+
+            <label data-i18n="password">Password</label>
+            <input type="password" id="regPassword" data-i18n-placeholder="createPasswordPlaceholder" placeholder="Create password">
+
+            <label data-i18n="confirmPassword">Confirm Password</label>
+            <input type="password" id="regConfirm" data-i18n-placeholder="confirmPasswordPlaceholder" placeholder="Confirm password">
+
+            <label data-i18n="village">Village</label>
+            <input type="text" id="regVillage" data-i18n-placeholder="villagePlaceholder" placeholder="Enter village">
+
+            <label data-i18n="district">District</label>
+            <input type="text" id="regDistrict" data-i18n-placeholder="districtPlaceholder" placeholder="Enter district">
+
+            <label>Mandal</label>
+            <input type="text" id="regMandal" placeholder="Enter mandal">
+
+            <label data-i18n="state">State</label>
+            <input type="text" id="regState" data-i18n-placeholder="statePlaceholder" placeholder="Enter state">
+
+            <label><span data-i18n="farmerId">Farmer ID</span> <span data-i18n="optionalText">(Optional)</span></label>
+            <input type="text" id="regFarmerId" data-i18n-placeholder="farmerIdPlaceholder" placeholder="Enter Farmer ID">
+
+            <button class="primary-btn" onclick="registerFarmer()">
+                <span data-i18n="register">Register</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ADMIN DASHBOARD ================= -->
+    <section id="adminDashboard" class="screen">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-btn" onclick="showScreen('login')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div>
+                    <h2>Mandal Admin Dashboard</h2>
+                    <p>Farmer verification and centre assignment</p>
+                </div>
+            </div>
+
+            <div class="notification-card">
+                <div class="notification-symbol queue-icon-small"><i class="fa-solid fa-user-shield"></i></div>
+                <div>
+                    <h3>Admin Credentials</h3>
+                    <p>Email: admin@mandal.gov</p>
+                    <p>Password: admin123</p>
+                </div>
+            </div>
+
+            <div id="adminCentresList"></div>
+            <div id="adminFarmersList"></div>
+        </div>
+    </section>
+
+
+    <!-- ================= STAFF DASHBOARD ================= -->
+    <section id="staffDashboard" class="screen">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-btn" onclick="showScreen('login')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div>
+                    <h2>Procurement Staff Dashboard</h2>
+                    <p>Village-wise procurement centre map</p>
+                </div>
+            </div>
+
+            <div class="notification-card">
+                <div class="notification-symbol queue-icon-small"><i class="fa-solid fa-map-location-dot"></i></div>
+                <div>
+                    <h3>Centre Operations</h3>
+                    <p>Track village coverage and centre readiness.</p>
+                </div>
+            </div>
+
+            <h3 class="section-title">Assigned Farmers</h3>
+            <div id="staffFarmersList"></div>
+
+            <h3 class="section-title">Village Centre Map</h3>
+            <div id="villageMapPanel"></div>
+        </div>
+    </section>
+
+
+    <!-- ================= HOME ================= -->
+    <section id="home" class="screen">
+
+        <header class="top-header">
+            <div>
+                <p class="small-text" data-i18n="welcomeBackHome">Welcome back 👋</p>
+                <h2 id="homeFarmerName">Ramesh Kumar</h2>
+            </div>
+
+            <button class="notification-icon"
+                    onclick="showScreen('notifications')">
+                <i class="fa-regular fa-bell"></i>
+                <span class="notification-dot"></span>
+            </button>
+        </header>
+
+
+        <main class="content">
+
+            <!-- Current Booking -->
+            <div class="booking-card">
+
+                <div class="card-top">
+                    <div>
+                        <p class="small-text" data-i18n="todaysProcurement">Today's Procurement</p>
+                        <h3>10:00 AM - 11:00 AM</h3>
+                    </div>
+
+                    <span class="status-badge success" data-i18n="confirmed">
+                        Confirmed
+                    </span>
+                </div>
+
+                <div class="booking-info">
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Central Procurement Centre</span>
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-ticket"></i>
+                        <span>Token A023</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Queue -->
+            <div class="queue-card">
+
+                <div class="queue-header">
+                    <div>
+                        <p class="small-text">Your Queue Position</p>
+                        <h1>5</h1>
+                        <p>Farmers ahead</p>
+                    </div>
+
+                    <div class="queue-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <div class="queue-footer">
+                    <span>Estimated waiting</span>
+                    <strong>25 minutes</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Quick Actions -->
+            <h3 class="section-title" data-i18n="quickActions">Quick Actions</h3>
+
+            <div class="quick-grid">
+
+                <button class="quick-card" onclick="showScreen('crop')">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span data-i18n="bookSlot">Book Slot</span>
+                </button>
+
+                <button class="quick-card" onclick="showScreen('token')">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span data-i18n="myToken">My Token</span>
+                </button>
+
+                <button class="quick-card" onclick="showScreen('queue')">
+                    <i class="fa-solid fa-users"></i>
+                    <span data-i18n="trackQueue">Track Queue</span>
+                </button>
+
+                <button class="quick-card" onclick="showScreen('status')">
+                    <i class="fa-solid fa-box"></i>
+                    <span data-i18n="procurement">Procurement</span>
+                </button>
+
+                <button class="quick-card" onclick="showScreen('payment')">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                    <span data-i18n="payment">Payment</span>
+                </button>
+
+                <button class="quick-card"
+                        onclick="showScreen('notifications')">
+                    <i class="fa-solid fa-bell"></i>
+                    <span data-i18n="notifications">Notifications</span>
+                </button>
+
+            </div>
+
+
+            <!-- Centre -->
+            <h3 class="section-title" data-i18n="procurementCentre">Procurement Centre</h3>
+
+            <div class="simple-card">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+                <div class="card-details">
+                    <h3>Central Procurement Centre</h3>
+                    <p>Bhimavaram • 2.5 km away</p>
+                    <p>🟢 Open today</p>
+                </div>
+
+            </div>
+
+        </main>
+
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+
+            <button class="nav-item active"
+                    onclick="showScreen('home')">
+                <i class="fa-solid fa-house"></i>
+                <span data-i18n="navHome">Home</span>
+            </button>
+
+            <button class="nav-item"
+                    onclick="showScreen('crop')">
+                <i class="fa-solid fa-calendar"></i>
+                <span data-i18n="navBook">Book</span>
+            </button>
+
+            <button class="nav-item"
+                    onclick="showScreen('token')">
+                <i class="fa-solid fa-ticket"></i>
+                <span data-i18n="navToken">Token</span>
+            </button>
+
+            <button class="nav-item"
+                    onclick="showScreen('status')">
+                <i class="fa-solid fa-chart-line"></i>
+                <span data-i18n="navStatus">Status</span>
+            </button>
+
+            <button class="nav-item"
+                    onclick="showScreen('profile')">
+                <i class="fa-solid fa-user"></i>
+                <span data-i18n="navProfile">Profile</span>
+            </button>
+
+        </nav>
+
+    </section>
+
+
+    <!-- ================= CROP DETAILS ================= -->
+    <section id="crop" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+                <button class="back-btn" onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="cropDetailsTitle">Crop Details</h2>
+                    <p data-i18n="cropDetailsSubtitle">Select your crop information</p>
+                </div>
+            </div>
+
+            <label data-i18n="cropNameLabel">Crop Name</label>
+            <select id="cropName">
+                <option value="Paddy">Paddy</option>
+                <option value="Wheat">Wheat</option>
+                <option value="Maize">Maize</option>
+                <option value="Cotton">Cotton</option>
+            </select>
+
+            <label data-i18n="cropTypeLabel">Crop Type</label>
+            <select id="cropType">
+                <option>Kharif</option>
+                <option>Rabi</option>
+                <option>Summer</option>
+            </select>
+
+            <label data-i18n="quantityLabel">Quantity</label>
+            <input type="number" id="cropQuantity"
+                   value="500" data-i18n-placeholder="quantityPlaceholder" placeholder="Quantity in kg">
+
+            <label data-i18n="harvestDateLabel">Harvest Date</label>
+            <input type="date" id="harvestDate">
+
+            <label data-i18n="qualityLabel">Quality / Grade</label>
+            <select id="cropQuality">
+                <option>Grade A</option>
+                <option>Grade B</option>
+                <option>Grade C</option>
+            </select>
+
+            <label data-i18n="expectedProcurementDate">Expected Procurement Date</label>
+            <input type="date" id="procurementDate">
+
+            <button class="primary-btn"
+                    onclick="showScreen('centres')">
+                <span data-i18n="continueText">Continue</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+            <button class="secondary-btn small-btn" onclick="showScreen('home')">
+                Skip to Home
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CENTRES ================= -->
+    <section id="centres" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn" onclick="showScreen('crop')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="procurementCentresTitle">Procurement Centres</h2>
+                    <p data-i18n="chooseCentreText">Choose a nearby centre</p>
+                </div>
+
+            </div>
+
+
+            <div id="farmerCentreList"></div>
+
+            <button class="secondary-btn small-btn" onclick="showScreen('home')">
+                Back to Home
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ADMIN CENTRE ASSIGNMENT ================= -->
+    <section id="centreProcedure" class="screen">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-btn" onclick="showScreen('centres')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div>
+                    <h2>Procurement Centre Update</h2>
+                    <p>Assigned centre details</p>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="card-top">
+                    <div>
+                        <p class="small-text">Selected Centre</p>
+                        <h3 id="selectedCentreName">Central Procurement Centre</h3>
+                    </div>
+                    <span class="status-badge success">Assigned</span>
+                </div>
+            </div>
+
+            <label>Day</label>
+            <select id="slotDay">
+                <option value="">Select day</option>
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+            </select>
+
+            <label>Slot</label>
+            <select id="slotType">
+                <option value="">Select slot</option>
+                <option>Morning</option>
+                <option>Evening</option>
+            </select>
+
+            <label>Time</label>
+            <select id="timeSlot">
+                <option value="">Select time</option>
+                <option>09:00 AM - 10:30 AM</option>
+                <option>10:30 AM - 12:00 PM</option>
+                <option>02:00 PM - 03:30 PM</option>
+                <option>04:00 PM - 05:00 PM</option>
+            </select>
+
+            <label>Number of persons ahead</label>
+            <input type="number" id="personsAhead" value="5" min="0">
+
+            <label>Additional note</label>
+            <textarea id="staffNote" rows="4" placeholder="Enter extra instructions or arrival notes"></textarea>
+
+            <button class="primary-btn" onclick="submitCentreStaffUpdate()">
+                Generate Token
+            </button>
+        </div>
+    </section>
+
+
+    <!-- ================= CENTRE DETAILS ================= -->
+    <section id="centreDetails" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn" onclick="showScreen('centres')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="centreDetailsTitle">Centre Details</h2>
+                    <p>Central Procurement Centre</p>
+                </div>
+
+            </div>
+
+
+            <div class="large-centre-icon">
+                <i class="fa-solid fa-building"></i>
+            </div>
+
+            <h2 class="centre-name">
+                Central Procurement Centre
+            </h2>
+
+            <span class="status-badge success" data-i18n="openToday">Open Today</span>
+
+
+            <div class="detail-card">
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <span>Address</span>
+                        <strong>Bhimavaram, West Godavari</strong>
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-clock"></i>
+                    <div>
+                        <span>Working Hours</span>
+                        <strong>8:00 AM - 5:00 PM</strong>
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div>
+                        <span>Available Slots</span>
+                        <strong>12 slots</strong>
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-users"></i>
+                    <div>
+                        <span>Current Queue</span>
+                        <strong>8 farmers</strong>
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                    <div>
+                        <span>Estimated Waiting</span>
+                        <strong>40 minutes</strong>
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-seedling"></i>
+                    <div>
+                        <span>Accepted Crops</span>
+                        <strong>Paddy, Wheat, Maize, Cotton</strong>
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <span>Contact</span>
+                        <strong>98765 43210</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <button class="primary-btn"
+                    onclick="showScreen('slotBooking')">
+                <span data-i18n="selectCentre">Select Centre</span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SLOT BOOKING ================= -->
+    <section id="slotBooking" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn"
+                        onclick="showScreen('centreDetails')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="bookYourSlot">Book Your Slot</h2>
+                    <p data-i18n="chooseConvenientTime">Choose a convenient time</p>
+                </div>
+
+            </div>
+
+
+            <label data-i18n="procurementDateLabel">Procurement Date</label>
+            <input type="date" id="bookingDate">
+
+
+            <label data-i18n="availableTimeSlots">Available Time Slots</label>
+
+            <div class="slot-grid">
+
+                <button class="slot selected"
+                        onclick="selectSlot(this)">
+                    <strong>9:00 AM</strong>
+                    <span>10:00 AM</span>
+                    <small>Available</small>
+                </button>
+
+                <button class="slot"
+                        onclick="selectSlot(this)">
+                    <strong>10:00 AM</strong>
+                    <span>11:00 AM</span>
+                    <small>Available</small>
+                </button>
+
+                <button class="slot"
+                        onclick="selectSlot(this)">
+                    <strong>11:00 AM</strong>
+                    <span>12:00 PM</span>
+                    <small>6 slots left</small>
+                </button>
+
+            </div>
+
+
+            <label data-i18n="cropLabel">Crop</label>
+            <input type="text" value="Paddy" readonly>
+
+
+            <label data-i18n="quantityLabelBooking">Quantity</label>
+            <input type="text" value="500 kg" readonly>
+
+
+            <label data-i18n="procurementCentreLabel">Procurement Centre</label>
+            <input type="text"
+                   value="Central Procurement Centre"
+                   readonly>
+
+
+            <button class="primary-btn"
+                    onclick="confirmBooking()">
+                <span data-i18n="confirmBooking">Confirm Booking</span>
+                <i class="fa-solid fa-check"></i>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FINAL TOKEN ================= -->
+    <section id="finalToken" class="screen">
+        <div class="page-container">
+            <div class="page-header">
+                <button class="back-btn" onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div>
+                    <h2>Final Token</h2>
+                    <p>Farmer token receipt</p>
+                </div>
+            </div>
+
+            <div class="token-card">
+                <p>Your Token Number</p>
+                <h1 id="finalTokenNumber">A023</h1>
+                <span class="status-badge success">Confirmed</span>
+
+                <div class="token-details">
+                    <div>
+                        <span>Farmer</span>
+                        <strong id="finalTokenFarmer">Ramesh Kumar</strong>
+                    </div>
+                    <div>
+                        <span>Centre</span>
+                        <strong id="finalTokenCentre">Central Procurement Centre</strong>
+                    </div>
+                    <div>
+                        <span>Day</span>
+                        <strong id="finalTokenDay">Monday</strong>
+                    </div>
+                    <div>
+                        <span>Slot</span>
+                        <strong id="finalTokenSlot">Morning / 09:00 AM</strong>
+                    </div>
+                    <div>
+                        <span>Persons Ahead</span>
+                        <strong id="finalTokenQueue">5</strong>
+                    </div>
+                    <div>
+                        <span>Village</span>
+                        <strong id="finalTokenVillage">Bhimavaram</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TOKEN ================= -->
+    <section id="token" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn"
+                        onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="digitalTokenTitle">Digital Token</h2>
+                    <p data-i18n="yourProcurementToken">Your procurement token</p>
+                </div>
+
+            </div>
+
+
+            <div class="token-card">
+
+                <p data-i18n="yourTokenNumber">Your Token Number</p>
+
+                <h1>A023</h1>
+
+                <span class="status-badge success" data-i18n="bookingConfirmed">
+                    Booking Confirmed
+                </span>
+
+                <div class="qr-placeholder">
+                    <i class="fa-solid fa-qrcode"></i>
+                    <span>QR Code</span>
+                </div>
+
+
+                <div class="token-details">
+
+                    <div>
+                        <span>Farmer</span>
+                        <strong id="tokenFarmer">
+                            Ramesh Kumar
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Crop</span>
+                        <strong>Paddy</strong>
+                    </div>
+
+                    <div>
+                        <span>Quantity</span>
+                        <strong>500 kg</strong>
+                    </div>
+
+                    <div>
+                        <span>Centre</span>
+                        <strong>Central Procurement Centre</strong>
+                    </div>
+
+                    <div>
+                        <span>Date</span>
+                        <strong id="tokenDate">
+                            Today
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Time Slot</span>
+                        <strong>10:00 AM - 11:00 AM</strong>
+                    </div>
+
+                    <div>
+                        <span>Queue Position</span>
+                        <strong>5</strong>
+                    </div>
+
+                    <div>
+                        <span>Estimated Waiting</span>
+                        <strong>25 minutes</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button class="primary-btn"
+                    onclick="showScreen('queue')">
+                <span data-i18n="trackMyQueue">Track My Queue</span>
+            </button>
+
+            <button class="danger-btn"
+                    onclick="cancelBooking()">
+                <span data-i18n="cancelBooking">Cancel Booking</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= QUEUE ================= -->
+    <section id="queue" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn"
+                        onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="trackMyQueueTitle">Track My Queue</h2>
+                    <p data-i18n="liveQueueSimulation">Live queue simulation</p>
+                </div>
+
+            </div>
+
+
+            <div class="queue-live-card">
+
+                <div class="live-status">
+                    <span class="live-dot"></span>
+                    <span data-i18n="centreServingFarmers">Centre is serving farmers</span>
+                </div>
+
+
+                <div class="serving-token">
+                    <span data-i18n="currentlyServing">Currently Serving</span>
+                    <strong>A018</strong>
+                </div>
+
+
+                <div class="your-token">
+                    <span data-i18n="yourToken">Your Token</span>
+                    <strong>A023</strong>
+                </div>
+
+
+                <div class="queue-big-number">
+                    <strong>5</strong>
+                    <span data-i18n="farmersAhead">Farmers Ahead</span>
+                </div>
+
+
+                <div class="progress large-progress">
+                    <div class="progress-fill queue-progress"></div>
+                </div>
+
+
+                <div class="wait-time">
+                    <i class="fa-solid fa-clock"></i>
+                    <div>
+                        <span data-i18n="estimatedWaiting">Estimated Waiting</span>
+                        <strong>25 minutes</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <p data-i18n="queueInfoText">
+                    You can arrive at the procurement centre
+                    when your token is approaching.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROCUREMENT STATUS ================= -->
+    <section id="status" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn"
+                        onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="procurementStatusTitle">Procurement Status</h2>
+                    <p data-i18n="trackYourProcurement">Track your procurement</p>
+                </div>
+
+            </div>
+
+
+            <div class="status-summary">
+
+                <span class="status-badge success" data-i18n="inProgress">
+                    In Progress
+                </span>
+
+                <h3>Paddy • 500 kg</h3>
+
+                <p>Token A023</p>
+
+            </div>
+
+
+            <div class="timeline">
+
+                <div class="timeline-item completed">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusSlotBooked">Slot Booked</h3>
+                        <p data-i18n="statusSlotBookedText">Your slot has been confirmed</p>
+                    </div>
+                </div>
+
+
+                <div class="timeline-item completed">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusFarmerArrived">Farmer Arrived</h3>
+                        <p data-i18n="statusFarmerArrivedText">Arrival recorded</p>
+                    </div>
+                </div>
+
+
+                <div class="timeline-item completed">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusVerificationCompleted">Verification Completed</h3>
+                        <p data-i18n="statusVerificationCompletedText">Farmer details verified</p>
+                    </div>
+                </div>
+
+
+                <div class="timeline-item current">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-spinner"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusCropSubmitted">Crop Submitted</h3>
+                        <p data-i18n="statusCropSubmittedText">Crop is being processed</p>
+                    </div>
+                </div>
+
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-circle"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusQualityCheck">Quality Check</h3>
+                        <p data-i18n="pendingText">Pending</p>
+                    </div>
+                </div>
+
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-circle"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusProcurementCompleted">Procurement Completed</h3>
+                        <p data-i18n="pendingText">Pending</p>
+                    </div>
+                </div>
+
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-circle"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusPaymentProcessing">Payment Processing</h3>
+                        <p data-i18n="pendingText">Pending</p>
+                    </div>
+                </div>
+
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fa-solid fa-circle"></i>
+                    </div>
+
+                    <div>
+                        <h3 data-i18n="statusPaymentCompleted">Payment Completed</h3>
+                        <p data-i18n="pendingText">Pending</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PAYMENT ================= -->
+    <section id="payment" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn"
+                        onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="paymentStatusTitle">Payment Status</h2>
+                    <p data-i18n="paymentStatusSubtitle">Procurement payment details</p>
+                </div>
+
+            </div>
+
+
+            <div class="payment-card">
+
+                <div class="payment-icon">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+
+                <p data-i18n="procurementAmount">Procurement Amount</p>
+
+                <h1>₹12,500</h1>
+
+                <span class="status-badge success" data-i18n="paymentCompleted">
+                    Payment Completed
+                </span>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-seedling"></i>
+
+                    <div>
+                        <span data-i18n="cropLabelPayment">Crop</span>
+                        <strong>Paddy</strong>
+                    </div>
+                </div>
+
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-weight-hanging"></i>
+
+                    <div>
+                        <span data-i18n="quantityLabelPayment">Quantity</span>
+                        <strong>500 kg</strong>
+                    </div>
+                </div>
+
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-calendar"></i>
+
+                    <div>
+                        <span data-i18n="procurementDatePayment">Procurement Date</span>
+                        <strong>10 September 2026</strong>
+                    </div>
+                </div>
+
+
+                <div class="detail-row">
+                    <i class="fa-solid fa-receipt"></i>
+
+                    <div>
+                        <span data-i18n="referenceNumber">Reference Number</span>
+                        <strong>PAY-2026-02345</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+                <i class="fa-solid fa-circle-check"></i>
+
+                <p data-i18n="paymentSuccessText">
+                    Your payment has been successfully processed.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= NOTIFICATIONS ================= -->
+    <section id="notifications" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn"
+                        onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="notificationsTitle">Notifications</h2>
+                    <p data-i18n="importantUpdates">Important updates</p>
+                </div>
+
+            </div>
+
+
+            <div class="notification-card">
+
+                <div class="notification-symbol success-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div>
+                    <h3 data-i18n="notificationSlotConfirmed">Slot Booking Confirmed</h3>
+
+                    <p data-i18n="notificationSlotConfirmedText">
+                        Your procurement slot has been successfully booked.
+                    </p>
+
+                    <small>Today, 9:30 AM</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification-card">
+
+                <div class="notification-symbol reminder-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div>
+                    <h3 data-i18n="notificationReminder">Procurement Reminder</h3>
+
+                    <p data-i18n="notificationReminderText">
+                        Your procurement slot is tomorrow at 10:00 AM.
+                    </p>
+
+                    <small>Yesterday</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification-card">
+
+                <div class="notification-symbol queue-icon-small">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <div>
+                    <h3 data-i18n="notificationQueueUpdate">Queue Update</h3>
+
+                    <p data-i18n="notificationQueueUpdateText">
+                        Only 5 farmers are ahead of you.
+                    </p>
+
+                    <small>10 minutes ago</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification-card">
+
+                <div class="notification-symbol warning-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+
+                <div>
+                    <h3 data-i18n="notificationCentreSchedule">Centre Schedule Update</h3>
+
+                    <p data-i18n="notificationCentreScheduleText">
+                        Procurement centre will close at 5:00 PM today.
+                    </p>
+
+                    <small>Yesterday</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification-card">
+
+                <div class="notification-symbol success-icon">
+                    <i class="fa-solid fa-box"></i>
+                </div>
+
+                <div>
+                    <h3 data-i18n="notificationProcurementCompleted">Procurement Completed</h3>
+
+                    <p data-i18n="notificationProcurementCompletedText">
+                        Your crop procurement has been completed.
+                    </p>
+
+                    <small>2 days ago</small>
+                </div>
+
+            </div>
+
+
+            <div class="notification-card">
+
+                <div class="notification-symbol payment-icon-small">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+
+                <div>
+                    <h3 data-i18n="notificationPaymentCompleted">Payment Completed</h3>
+
+                    <p data-i18n="notificationPaymentCompletedText">
+                        ₹12,500 has been credited for your procurement.
+                    </p>
+
+                    <small>2 days ago</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROFILE ================= -->
+    <section id="profile" class="screen">
+
+        <div class="page-container">
+
+            <div class="page-header">
+
+                <button class="back-btn"
+                        onclick="showScreen('home')">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div>
+                    <h2 data-i18n="myProfileTitle">My Profile</h2>
+                    <p data-i18n="farmerAccountDetails">Farmer account details</p>
+                </div>
+
+            </div>
+
+
+            <div class="profile-header">
+
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <h2 id="profileName">Ramesh Kumar</h2>
+
+                <p data-i18n="farmerRole">Farmer</p>
+
+                <div class="status-badge success" id="profileStatusBadge">Approved</div>
+
+            </div>
+
+
+            <div class="detail-card">
+
+                <div class="detail-row">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <div>
+                        <span data-i18n="profileFarmerNameLabel">Farmer Name</span>
+                        <strong id="profileFarmerName">
+                            Ramesh Kumar
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <div>
+                        <span data-i18n="profileMobileLabel">Mobile Number</span>
+                        <strong id="profileMobile">
+                            9876543210
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <div>
+                        <span data-i18n="profileEmailLabel">Email</span>
+                        <strong id="profileEmail">
+                            ramesh@example.com
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <div>
+                        <span data-i18n="profileVillageLabel">Village</span>
+                        <strong>Bhimavaram</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <i class="fa-solid fa-map"></i>
+
+                    <div>
+                        <span data-i18n="profileDistrictLabel">District</span>
+                        <strong>West Godavari</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <i class="fa-solid fa-id-card"></i>
+
+                    <div>
+                        <span data-i18n="profileFarmerIdLabel">Farmer ID</span>
+                        <strong>FARM-02345</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button class="profile-option"
+                    onclick="editProfile()">
+                <i class="fa-solid fa-pen"></i>
+                <span data-i18n="editProfile">Edit Profile</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+
+            <button class="profile-option"
+                    onclick="showScreen('token')">
+                <i class="fa-solid fa-calendar"></i>
+                <span data-i18n="myBookings">My Bookings</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+
+            <button class="profile-option"
+                    onclick="helpSupport()">
+                <i class="fa-solid fa-circle-question"></i>
+                <span data-i18n="helpSupport">Help & Support</span>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+
+            <button class="logout-btn"
+                    onclick="logout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span data-i18n="logout">Logout</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Voice Assistant -->
+    <aside id="voiceAssistant" class="voice-assistant" aria-label="Farmer voice assistant">
+        <button id="voiceAssistantToggle" class="voice-assistant-toggle" type="button" aria-expanded="false" aria-controls="voiceAssistantPanel" title="Open voice assistant">
+            <i class="fa-solid fa-microphone"></i>
+            <span class="voice-assistant-toggle-label">Voice help</span>
+        </button>
+
+        <div id="voiceAssistantPanel" class="voice-assistant-panel" hidden>
+            <div class="voice-assistant-heading">
+                <div>
+                    <p class="voice-eyebrow">FARMER SUPPORT</p>
+                    <h2 id="voiceAssistantTitle">How can I help?</h2>
+                </div>
+                <button id="voiceAssistantClose" class="voice-close-btn" type="button" aria-label="Close voice assistant">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <p id="voiceAssistantStatus" class="voice-assistant-status" aria-live="polite">Tap the microphone and speak.</p>
+            <div id="voiceAssistantTranscript" class="voice-assistant-transcript" aria-live="polite">Try: “Book a slot”</div>
+
+            <div class="voice-assistant-actions">
+                <button id="voiceAssistantMic" class="voice-mic-btn" type="button" title="Start listening">
+                    <i class="fa-solid fa-microphone"></i>
+                    <span>Speak</span>
+                </button>
+                <button id="voiceAssistantRead" class="voice-read-btn" type="button" title="Read this page aloud">
+                    <i class="fa-solid fa-volume-high"></i>
+                    <span>Read page</span>
+                </button>
+            </div>
+
+            <form id="voiceAssistantForm" class="voice-assistant-form">
+                <label for="voiceAssistantInput">Type a request</label>
+                <div class="voice-input-row">
+                    <input id="voiceAssistantInput" type="text" placeholder="Example: show my token" autocomplete="off">
+                    <button type="submit" aria-label="Send request" title="Send request"><i class="fa-solid fa-arrow-up"></i></button>
+                </div>
+            </form>
+
+            <p class="voice-assistant-hint"><i class="fa-solid fa-circle-info"></i> Works best in Chrome or Edge with microphone permission.</p>
+        </div>
+    </aside>
+
+    <!-- Toast Message -->
+    <div id="toast" class="toast"></div>
+
+</div>
+
+
+<script src="script.js"></script>
+ 
+
+</body>
+</html>
